@@ -4,18 +4,26 @@ This project implements a way to provide file transfer between two or more remot
 
 ##How to Run the Program
 - Give execute permission to init.sh
-	#chmod +x init.sh
+```
+chmod +x init.sh
+```
 - Run init.sh
-	#./init.sh
+```
+./init.sh
+```
 - Run Main.py
-	#python Main.py <ssid>
+```
+python Main.py <SSID>
+```
 
 ##Pre-Requisites
 The program depends on the following libraries which must be installed prior to running the code:
 - Linux
 - python2
 - tkinter
-	#sudo apt-get install python-tk
+```
+sudo apt-get install python-tk
+```
 
 ##Features
 
