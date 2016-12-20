@@ -5,7 +5,8 @@ This project implements a way set up a mesh network and exchange messages over m
 ##How to Run the Program
 - Give execute permission to both files, create.sh and delete,sh
 ```
-chmod +x init.sh
+chmod +x create.sh
+chmod +x delete.sh
 ```
 - Run ./create.sh
 ```
