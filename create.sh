@@ -1,35 +1,40 @@
 #!/bin/sh
 
-
 ERROR() {
 	echo "fail"
 	exit 1
 }
 
-SSID=$1
-mac=$2
+mesh_if=$1
+mesh_id=$2
+mesh_ip=$3
+netmask=$4
+broadcast_ip=$5
 
-#commands
-#disable network-manager
-`sudo service network-manager stop` || ERROR
+#Commands
 
-#find adapter	
+#Disable network-manager
+sudo service network-manager stop || ERROR
+
+#Find adapter	
 wifi_if=`sudo iw dev | grep Interface | awk '{print $2}'` || ERROR 
 
-`sudo ip link set $wifi_if down` || ERROR
+#Create mesh interace on wifi dev
+sudo iw dev $wifi_if interface add $mesh_if type mesh || ERROR
+
+#Set IP.
+sudo ip addr add $mesh_ip/$netmask broadcast $broadcast_ip dev $mesh_if
+
+#Set down wifi_if and turn on mesh_if.
+sudo ip link set $wifi_if down || ERROR
+sudo ip link set $mesh_if up || ERROR
 
 #Todo - change channel
 
-`sudo iwconfig  $wifi_if mode ad-hoc` || ERROR
+sudo iw dev $mesh_if mesh join $mesh_id || ERROR
 
-`sudo iwconfig  $wifi_if essid $SSID` || ERROR
+sudo iw dev $mesh_if get mesh_param || ERROR
 
-#Todo - WEP key
+sudo iw dev $mesh_if station dump || ERROR
 
-#mac=`ip link show $wifi_if | grep link/ether | awk '{ print $2 }'`
-
-#Todo convert MAC to hex
-
-`sudo ip addr add $mac/8 broadcast 10.255.255.255 dev $wifi_if` || ERROR
-
-`sudo ip link set $wifi_if up` || ERROR
+#Todo - WPA_supplicant
