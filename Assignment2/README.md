@@ -21,7 +21,6 @@ chmod +x delete.sh
 
 - create.sh: Creates a logcal mesh interface and assignes the IP and broadcast addresses to it.
 - delete.sh: Returns configuration to the previous state by undoing the changes made by create.sh
-- connect.sh: Script to scan for an ad-hoc.
 
 
 	
